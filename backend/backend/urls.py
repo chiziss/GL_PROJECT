@@ -1,3 +1,4 @@
+from django.views.generic import TemplateView
 from django.contrib import admin
 
 # add include to the path
@@ -22,7 +23,7 @@ urlpatterns = [
 	# add another path to the url patterns
 	# when you visit the localhost:8000/api
 	# you should be routed to the django Rest framework
-	path('api/', include(router.urls))
-
+	path('api/', include(router.urls)),
+	path("", TemplateView.as_view(template_name="index.html")),
 
 ]

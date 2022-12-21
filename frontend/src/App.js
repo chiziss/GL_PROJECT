@@ -138,9 +138,7 @@ handleDelete = (item) => {
 	.delete(`http://localhost:8000/api/tasks/${item.id}/`)
 	.then((res) => this.refreshList());
 };
-handleDelete = (item) => {
-	alert("delete" + JSON.stringify(item));
-};
+
 
 // Create item
 createItem = () => {
