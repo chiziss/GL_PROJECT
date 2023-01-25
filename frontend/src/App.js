@@ -1,10 +1,53 @@
 // import Component from the react module
-import React, { Component } from "react";
+/*import React, { Component } from "react";
 import Modal from "./components/Modal";
-import axios from 'axios';
+import axios from 'axios';*/
+import { BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import LoginReg from "./pages/auth/LoginReg";
+import ResetPassword from "./pages/auth/ResetPassword";
+import SendPasswordResetEmail from "./pages/auth/SendPasswordResetEmail";
+import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import Layout from "./pages/Layout";
+import { useSelector } from "react-redux";
+import home from './components/home';
+import Annonce from './components/Annonce';
+import AnnonceDetail from './components/AnnonceDetail';
+import Category from './components/category';
+function App() {
+  const { access_token } = useSelector(state => state.auth)
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+		
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="login" element={!access_token ? <LoginReg /> : <Navigate to="/dashboard" />} />
+            <Route path="sendpasswordresetemail" element={<SendPasswordResetEmail />} />
+            <Route path="api/user/reset/:id/:token" element={<ResetPassword />} />
+			<Route exact path='/annonce' component={Annonce} />
+            <Route exact path='/category/:id' component={Category} />
+            <Route exact path='/annonce/:id' component={AnnonceDetail} />
+          </Route>
+          <Route path="/dashboard" element={access_token ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path="*" element={<h1>Error 404 Page not found !!</h1>} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}
+
+
+
+
+export default App;
+
 
 // create a class that extends the component
-class App extends Component {
+/*class App extends Component {
 
 // add a constructor to take props
 constructor(props) {
@@ -185,3 +228,4 @@ render() {
 }
 }
 export default App;
+*/
