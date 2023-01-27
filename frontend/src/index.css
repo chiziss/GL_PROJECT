@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.todo-title {
+/* .todo-title {
   cursor: pointer;
   }
   .completed-todo {
@@ -18,5 +18,14 @@
   .tab-list > span.active {
   background-color: rgb(6, 139, 12);
   color: #fff;
+  } */
+  .hey{
+    background: url('./pics/cnx1.png') ;
   }
-  
+  .annonce{
+    background-image: url('./pics/formulaire.png');
+    background: no-repeat cover;
+  }
+  .home{
+    background: url('./pics/home.png') ;
+  }

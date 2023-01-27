@@ -2,7 +2,24 @@
 import React, { Component } from "react";
 import Modal from "./components/Modal";
 import axios from 'axios';
-
+import NavBar from "./components/NavBar";
+import Hero from "./components/Hero";
+import Regions from "./components/Regions";
+import Login from "./components/Login";
+import Sign from "./components/Sign";
+import { ThemeProvider } from "@material-tailwind/react";
+import MyProfile from "./components/MyProfile";
+import  Carous  from "./components/Carous";
+import AddAnnonce from "./components/AddAnnonce";
+import Footer from "./components/Footer";
+import Quote from "./components/Quote";
+import Home from "./components/Home";
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+   
+  } from "react-router-dom";
 // create a class that extends the component
 class App extends Component {
 
@@ -154,33 +171,48 @@ editItem = (item) => {
 // Start by visual effects to viewer
 render() {
 	return (
-	<main className="content">
-		<h1 className="text-success text-uppercase text-center my-4">
-		GFG Task Manager
-		</h1>
-		<div className="row ">
-		<div className="col-md-6 col-sm-10 mx-auto p-0">
-			<div className="card p-3">
-			<div className="">
-				<button onClick={this.createItem} className="btn btn-info">
-				Add task
-				</button>
-			</div>
-			{this.renderTabList()}
-			<ul className="list-group list-group-flush">
-				{this.renderItems()}
-			</ul>
-			</div>
+		<div>
+		<Router>
+			<ThemeProvider>
+			<Routes>
+				<Route path="/"  element={<Home />} />
+				<Route path="/log"  element={<Login />} />
+				<Route path="/sign"  element={<Sign />} />
+				<Route path="/myProfile"  element={<MyProfile />} />
+				<Route path="/annonce"  element={<AddAnnonce />} />
+					
+			</Routes>
+			</ThemeProvider>
+		</Router>
 		</div>
-		</div>
-		{this.state.modal ? (
-		<Modal
-			activeItem={this.state.activeItem}
-			toggle={this.toggle}
-			onSave={this.handleSubmit}
-		/>
-		) : null}
-	</main>
+	// <main className="content">
+	// 	<h1 className="text-success text-uppercase text-center my-4">
+	// 	GFG Task Manager
+	// 	</h1>
+	// 	<div className="row ">
+	// 	<div className="col-md-6 col-sm-10 mx-auto p-0">
+	// 		<div className="card p-3">
+	// 		<div className="">
+	// 			<button onClick={this.createItem} className="btn btn-info">
+	// 			Add task
+	// 			</button>
+	// 		</div>
+	// 		{this.renderTabList()}
+	// 		<ul className="list-group list-group-flush">
+	// 			{this.renderItems()}
+	// 		</ul>
+	// 		</div>
+	// 	</div>
+	// 	</div>
+	// 	{this.state.modal ? (
+	// 	<Modal
+	// 		activeItem={this.state.activeItem}
+	// 		toggle={this.toggle}
+	// 		onSave={this.handleSubmit}
+	// 	/>
+	// 	) : null}
+	// </main>
+	
 	);
 }
 }
