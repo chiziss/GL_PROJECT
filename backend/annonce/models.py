@@ -3,79 +3,72 @@ from account.models import User
 from datetime import datetime
 from django.template.defaultfilters import slugify
 
+#category model
 class Category(models.TextChoices):
     PRIMARY='primary school',
     MIDDLE='middle school',
     SECONDARY='secondary school',
     TERTIARY='tertiary education'
-    
-class Lieu(models.Model):
+
+#location model 
+class Location(models.Model):
     wilaya=models.CharField(max_length=50),
     commune=models.CharField(max_length=50)
 
+#theme model
 class Theme(models.TextChoices):
     MATH='math'
     PHYS='phys'
 
-class Modalite(models.TextChoices):
+#modality model
+class Modality(models.TextChoices):
     ONLINE='online'
     OFFLINE='offline'
 
+
+#posts model
 class Annonces(models.Model):
-    title=models.CharField(),
-    slug = models.SlugField(),
-    annonceur=models.ForeignKey(User, on_delete=models.CASCADE),
-    date=models.DateTimeField(default=datetime.now, blank=True),
-    photo = models.ImageField(upload_to='images/%y/%m/%d/'),
-    category =models.CharField(choices=Category.choices),
-    theme=models.CharField(choices=Theme.choices),
-    modalite=models.CharField(choices=Modalite.choices),
-    description=models.TextField(),
-    lieu=models.OneToOneField(Lieu,on_delete=models.CASCADE),
-    tarif=models.BigIntegerField(),
-    favorie=models.BooleanField(default=False),
-    historique=models.BooleanField(default=False),
-
-    def save(self, *args, **kwargs):
-        original_slug = slugify(self.title)
-        queryset = Annonces.objects.all().filter(slug__iexact=original_slug).count()
-
-        count = 1
-        slug = original_slug
-        while(queryset):
-            slug = original_slug + '-' + str(count)
-            count += 1
-            queryset = Annonces.objects.all().filter(slug__iexact=slug).count()
-
-        self.slug = slug
-
-        if self.favorie:
-            try:
-                temp = Annonces.objects.get(favorie=True)
-                if self != temp:
-                    temp.favorie = False
-                    temp.save()
-            except Annonces.DoesNotExist:
-                pass
-        if self.historique:
-            try:
-                temp = Annonces.objects.get(historique=True)
-                if self != temp:
-                    temp.historique= False
-                    temp.save()
-            except Annonces.DoesNotExist:
-                pass
-        
-        super(Annonces, self).save(*args, **kwargs)
+    title=models.CharField(max_length=300)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    date=models.DateTimeField(default=datetime.now, blank=True)
+    photo = models.ImageField(upload_to='images/%y/%m/%d/')
+    category =models.CharField(choices=Category.choices,max_length=30)
+    theme=models.CharField(choices=Theme.choices,max_length=30)
+    modalite=models.CharField(choices=Modality.choices,max_length=30)
+    description=models.TextField()
+    lieu=models.OneToOneField(Location,on_delete=models.CASCADE)
+    tarif=models.BigIntegerField()
 
     def __str__(self):
         return self.title
+    class Meta:
+        ordering = ['-date']
 
-    
+
+#favorite model
+class Favorite(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    post=models.ManyToManyField(Annonces)
+
+
+#history model
+class History(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    post=models.ManyToManyField(Annonces)
     
 
-class Commentaires(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE),
-    annonce=models.ForeignKey(Annonces, on_delete=models.CASCADE),
-    content=models.TextField(),
-    date=models.DateTimeField(default=datetime.now, blank=True),
+#comments model
+class Comments(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    post=models.ForeignKey(Annonces, on_delete=models.CASCADE)
+    body=models.TextField()
+    date=models.DateTimeField(default=datetime.now, blank=True)
+    class Meta:
+        ordering = ['-date']
+    def __str__(self):
+        return self.body
+
+#upvote model or like model 
+class Upvote(models.Model):
+    user = models.ForeignKey(User, related_name = 'upvotes', on_delete = models.CASCADE)
+    post = models.ForeignKey(Annonces, related_name = 'upvotes', on_delete = models.CASCADE)

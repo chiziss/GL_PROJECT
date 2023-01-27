@@ -7,7 +7,7 @@ from django.dispatch import receiver
 class UserManager(BaseUserManager):
   def create_user(self, email, first_name, last_name,adress, password=None, password2=None):
       """
-      Creates and saves a User with the given email, name, tc and password.
+      Creates and saves a User with the given email, name, adress and password.
       """
       if not email:
           raise ValueError('User must have an email address')
@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
 
   def create_superuser(self, email, first_name, last_name,adress, password=None):
       """
-      Creates and saves a superuser with the given email, name, tc and password.
+      Creates and saves a superuser with the given email, name, adress and password.
       """
       user = self.create_user(
           email,
@@ -69,7 +69,7 @@ class User(AbstractBaseUser):
       return self.is_admin
 
   def has_module_perms(self, app_label):
-      "Does the user have permissions to view the app `app_label`?"
+      "Does the user have permissions to view the app ?"
       # Simplest possible answer: Yes, always
       return True
 

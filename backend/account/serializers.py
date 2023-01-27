@@ -4,7 +4,7 @@ from django.utils.encoding import smart_str, force_bytes, DjangoUnicodeDecodeErr
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
-
+#sign up serializer
 class UserRegistrationSerializer(serializers.ModelSerializer):
   # We are writing this becoz we need confirm password field in our Registratin Request
   password2 = serializers.CharField(style={'input_type':'password'}, write_only=True)
@@ -26,17 +26,21 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
   def create(self, validate_data):
     return User.objects.create_user(**validate_data)
 
+#sign in serializer 
 class UserLoginSerializer(serializers.ModelSerializer):
   email = serializers.EmailField(max_length=255)
   class Meta:
     model = User
     fields = ['email', 'password']
 
+#profile serializer
 class UserProfileSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = ['id','first_name','last_name','email','adress']
 
+
+#change password serializer
 class UserChangePasswordSerializer(serializers.Serializer):
   password = serializers.CharField(max_length=255, style={'input_type':'password'}, write_only=True)
   password2 = serializers.CharField(max_length=255, style={'input_type':'password'}, write_only=True)
