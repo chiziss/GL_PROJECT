@@ -20,6 +20,7 @@ import {
 	Route,
    
   } from "react-router-dom";
+import Detail from "./components/Detail";
 // create a class that extends the component
 class App extends Component {
 
@@ -180,6 +181,7 @@ render() {
 				<Route path="/sign"  element={<Sign />} />
 				<Route path="/myProfile"  element={<MyProfile />} />
 				<Route path="/annonce"  element={<AddAnnonce />} />
+				<Route path="/detail"  element={<Detail />} />
 					
 			</Routes>
 			</ThemeProvider>

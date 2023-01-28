@@ -17,7 +17,7 @@ function Home() {
         <Regions />
         <Suggest />
         <Quote />
-         <Detail />
+        
         <Footer />
         
     </div>

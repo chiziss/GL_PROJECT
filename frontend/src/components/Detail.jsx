@@ -8,6 +8,7 @@ import fix3 from "../pics/fix2.png"
 import hh2 from "../pics/hh2.png"
 import hh4 from "../pics/hh4.png"
 import hh3 from "../pics/hh3.png"
+import Footer from './Footer'
 
 function Detail() {
   return (
@@ -55,7 +56,7 @@ function Detail() {
             </div>
         </div>
         </div>
-       
+       <Footer />
     </div>
   )
 }

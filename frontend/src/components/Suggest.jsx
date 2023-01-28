@@ -9,6 +9,7 @@ import {
     Typography,
   } from "@material-tailwind/react";
 import Butt from './Butt';
+import { Link } from 'react-router-dom';
 function Suggest() {
   return (
     <div>
@@ -29,9 +30,9 @@ function Suggest() {
       </CardHeader>
       <CardBody className="">
       <div class="flex flex-col justify-between lg:mx-6">
-                    <p href="#" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
+               <Link to="/detail">     <p href="#" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
                         Science pour 3AS
-                    </p>
+                    </p></Link>
                     <p className='text-gray-500'>
                         cours de soutien en science naturel avec une enseignate experimentée
                     </p>
