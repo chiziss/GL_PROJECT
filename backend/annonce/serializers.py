@@ -10,7 +10,7 @@ class AnnonceSerializer(serializers.ModelSerializer):
     
 #comments serializer
 class CommentSerializer(serializers.ModelSerializer):
-  user = serializers.ReadOnlyField(source = 'user.firs_tname')
+  user = serializers.ReadOnlyField(source = 'user.first_name')
   class Meta:
         model = Comments
         fields = '__all__'
