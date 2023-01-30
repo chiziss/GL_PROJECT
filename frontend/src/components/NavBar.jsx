@@ -1,9 +1,44 @@
-import React from "react";
+import React,{createContext, useContext} from "react";
 import drp from "../pics/dropdown.png"
 import { Button } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, NavLink} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../features/user.js';
+export const LoginContext = createContext();
 
 function NavBar(props) {
+
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
+  const authLinks = (
+		<>
+			<li className='nav-item'>
+				<NavLink className='nav-link' to='/profile'>
+					Profile
+				</NavLink>
+			</li>
+
+			<li className='nav-item'>
+				<a className='nav-link' href='#!'>
+					Logout
+				</a>
+			</li>
+		</>
+	);
+
+	const guestLinks = (
+		<>
+			<li className='nav-item'>
+				<NavLink className='nav-link' to='/login'>
+					Login
+				</NavLink>
+			</li>
+			<li className='nav-item'>
+				<NavLink className='nav-link' to='/register'>
+					Register
+				</NavLink>
+			</li>
+		</>
+	);
   return (
     <nav id="header" class="w-full  text-black bg-transparent">
       <div class="w-full flex justify-between">
@@ -46,7 +81,7 @@ function NavBar(props) {
             </ul>
           </nav>
         </div>
-
+       
         <div class="flex w-full justify-end mr-0 md:mr-10">
           <div class="auth flex items-center">
          <Link to='sign' >   <Button className="bg-transparent text-gray-800 w-[120px] font-bold  p-2 rounded border border-gray-300 mr-4">

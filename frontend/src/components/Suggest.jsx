@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import shape from "../pics/shape.png"
 import hh from "../pics/hh1.png"
 import {
@@ -11,6 +11,26 @@ import {
 import Butt from './Butt';
 import { Link } from 'react-router-dom';
 function Suggest() {
+    const [annonce, setAnnonce]=useState();
+    const token = localStorage.getItem('access');
+
+  useEffect(()=>{
+    fetch('http://localhost:8000/api/posts/', {
+        
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json',
+            Authorization:'Bearer ' + token
+          
+    }})
+    .then((response)=>{
+        return response.json();
+    })
+    .then((data)=>{
+        console.log(data)
+        setAnnonce(data);
+    })
+  },[]);
+
   return (
     <div>
         
@@ -47,6 +67,29 @@ function Suggest() {
     </Card>
         </div>
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 flex-1 ">
+           
+           { annonce ? annonce.map((post)=>{
+                return(
+                 <div class="lg:flex">
+                <img class="object-cover w-full  rounded-lg lg:w-64" src={`http://localhost:8000${post.photo}`} alt=""/>
+                
+                <div class="flex flex-col justify-between py-6 lg:mx-6">
+                   <Link to={'/'+post.id} > <p  class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
+                        {post.title}
+                    </p></Link>
+                    <p className='text-gray-500'>
+                        {post.description}
+                    </p>
+                    
+                    <span class="text-sm text-gray-500 flex dark:text-gray-300 gap-4">
+                        <p className='bg-[#F2E5E591] rounded  px-3'>{post.category}</p>
+                        <p className='bg-[#F2E5E591] rounded  px-3'> {post.lieu} </p>
+                        <p className='bg-[#F2E5E591] rounded  px-3'> {post.theme} </p>
+                    </span>
+                </div>
+                </div>);
+           }): 'there are no posts yet'}
+           
             <div class="lg:flex">
                 <img class="object-cover w-full  rounded-lg lg:w-64" src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt=""/>
 

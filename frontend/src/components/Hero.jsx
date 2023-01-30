@@ -1,9 +1,27 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import '../index.css';
 import Butt from "./Butt";
 import NavBar from "./NavBar";
 
 function Hero() {
+  const token = localStorage.getItem("access");
+  const [ann, setAnn] = useState();
+  useEffect(() => {
+    fetch("http://localhost:8000/api/posts/category/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setAnn(data);
+      });
+  }, []);
   return (<div className="home h-screen ">
     <NavBar col={1} />
     

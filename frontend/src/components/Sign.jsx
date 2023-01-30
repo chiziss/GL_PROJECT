@@ -2,22 +2,35 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function Sign() {
+ 
   return (
-    <div className="h-screen bg-pink-300 flex hey">
-         <div className="flex-1 py-[80px] pl-14 pr-[100px]">
-        <form action="" method="">
+    <div className="h-full  flex hey">
+         <div className="flex-1 py-[50px] pl-14 pr-[100px]">
+        <form action='http://localhost:8000/api/users/register/' method="post">
            
-          <div className="grid space-y-10 p-[50px] border-4  rounded-[25px] backdrop-blur-lg bg-[#ffffff48]">
+          <div className="grid space-y-10 p-[40px] border-4  rounded-[25px] backdrop-blur-lg bg-[#ffffff48]">
           <p className="text-center text-4xl font-medium text-[#2B3A55]">S<color className="text-[#CE7777]">'</color>inscrire</p>
            <div className="space-y-4 px-8">
            <div className="space-y-1">
-            <label htmlFor="#user" className="text-[#2B3A55]">
+            <label htmlFor="#first_name" className="text-[#2B3A55]">
               Nom Utilisateur :
             </label>
             <input
               type="text"
-              id="user"
-              name="user"
+              id="first_name"
+              name="first_name"
+              className="w-full border-2 border-[#ce7777bb] h-9 bg-[#F2E5E5] justify-self-center rounded pl-3 focus:outline-none"
+              required
+            />
+            </div>
+            <div className="space-y-1">
+            <label htmlFor="#last_name" className="text-[#2B3A55]">
+              Prenom Utilisateur :
+            </label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
               className="w-full border-2 border-[#ce7777bb] h-9 bg-[#F2E5E5] justify-self-center rounded pl-3 focus:outline-none"
               required
             />
@@ -62,9 +75,9 @@ function Sign() {
            <div className="grid space-y-1">
 
             <button
-              type="password"
-              id="password"
-              name="password"
+              type="submit"
+            
+             
               className="text-white py-2 px-4 rounded-[50px] bg-[#2B3A55] justify-self-center "
               required
             >

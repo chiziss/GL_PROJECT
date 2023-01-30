@@ -1,14 +1,18 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import NavBar from "./NavBar";
 import add from "../pics/Vector-3.png";
 import { Button } from "@material-tailwind/react";
-import { useState } from "react";
 import annonces from "../pics/Group.png";
 import profile from "../pics/Vector-1.png"
 import photo from "../pics/Vectorr.png";
 import Carous from "./Carous";
 import Slides from "./Slides";
 import { Link } from "react-router-dom";
+import withAuth from './withAuth';
+
+
+
+
 function MyProfile() {
   const [openTab, setOpenTab] = React.useState(1);
   const [file, setFile] = useState();
@@ -16,6 +20,24 @@ function MyProfile() {
     console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
   }
+
+ 
+  const token = localStorage.getItem('access');
+  const [user, setUser]=useState();
+  useEffect(()=>{
+    fetch('http://localhost:8000/api/users/me', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json',
+    Authorization:'Bearer ' + token
+  }})
+    .then((response)=>{
+        return response.json();
+    })
+    .then((data)=>{
+        console.log(data)
+        setUser(data);
+    })
+  },[]);
 
   return (
     <div className="h-screen bg-white text-[#2B3A55]">
@@ -118,6 +140,7 @@ function MyProfile() {
                         <input
                           id="username"
                           type="text"
+                         
                           class="block  w-full px-4 py-2 mt-2  bg-[#F2E5E5] border-2 border-[#E8C4C4] rounded-xl dark:border-red-300 focus:border-red-300 focus:ring-[#E8C4C4] focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                         />
                       </div>
@@ -132,6 +155,7 @@ function MyProfile() {
                         <input
                           id="prenom"
                           type="text"
+                        
                           class="block  w-full px-4 py-2 mt-2  bg-[#F2E5E5] border-2 border-[#E8C4C4] rounded-xl dark:bg-red-300 dark: dark:border-red-300 focus:border-red-300 focus:ring-[#E8C4C4] focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                         />
                       </div>
@@ -146,6 +170,7 @@ function MyProfile() {
                         <input
                           id="emailAddress"
                           type="email"
+                     
                           class="block  w-full px-4 py-2 mt-2  bg-[#F2E5E5] border-2 border-[#E8C4C4] rounded-xl dark:bg-red-300 dark: dark:border-red-300 focus:border-red-300 focus:ring-[#E8C4C4] focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                         />
                       </div>
@@ -160,6 +185,7 @@ function MyProfile() {
                         <input
                           id="phone"
                           type="text"
+                    
                           class="block  w-full px-4 py-2 mt-2  bg-[#F2E5E5] border-2 border-[#E8C4C4] rounded-xl dark:bg-red-300 dark: dark:border-red-300 focus:border-red-300 focus:ring-[#E8C4C4] focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                         />
                       </div>

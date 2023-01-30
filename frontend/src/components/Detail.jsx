@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect,useState} from 'react'
 import NavBar from './NavBar'
 import back from "../pics/formulaire.png"
 import Carous from './Carous'
@@ -9,8 +9,43 @@ import hh2 from "../pics/hh2.png"
 import hh4 from "../pics/hh4.png"
 import hh3 from "../pics/hh3.png"
 import Footer from './Footer'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 function Detail() {
+    const navigate= useNavigate();
+    const {id} =useParams();
+    const [annonce, setAnnonce]=useState();
+    const [loggedIn, setLoggedIn] = useState();
+    const [error, setError] = useState();
+    useEffect(()=>{
+       
+        fetch('http://localhost:8000/api/posts/'+id +'/', {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('access')
+            },
+        })
+        .then((response)=>{
+            if(response.status === 404){
+                navigate('/')
+            
+            }else if (response.status === 401) {
+                setLoggedIn(false);
+                navigate('/log');
+            }
+            if (!response.ok) {
+                throw new Error('Something went wrong, try again later');
+            }
+            return response.json();
+        })
+        .then((data)=>{
+            setAnnonce(data);
+        }).catch((e) => {
+            setError(e.message);
+        });
+    },[])
+
   return (
     <div>
         <NavBar col={0} />
@@ -26,20 +61,43 @@ function Detail() {
                 </div>
             </form>
         </div>
-        
-        <div className='grid space-y-10 mt-14 justify-items-center'>
+        {annonce ? <div className='grid space-y-10 mt-14 justify-items-center'>
             <div className="flex gap-3">
+            {error ? <p>{error}</p> : null}
                         <img src="https://i.ibb.co/fDngH9G/carosel-1.png" className="h-20 w-20 rounded-full" ></img>
-                    <div className="leading-6 mt-2"><p className='font-bold text-xl'>Formation enligne d'algorithmique</p>
-                    <p className='text-sm'>Il y a une semaine</p>
+                    <div className="leading-6 mt-2"><p className='font-bold text-xl'>{annonce.title} ---  {annonce.modalite}  </p>
+                    <p className='text-sm'> {annonce.date} </p>
                     </div>
             </div>
             <div className='w-[50%] h-[50%] '>
             <Carous />
             </div>
             <div className='font-medium w-[50%]'>
-                <p>Apprenez les bases d'algo en un seul cours complet, pour se lancer dans le monde de la programmation</p>
-                <p>Contactez nous sur : <u>  <b>estin@info.dz</b> </u></p>
+                <p> {annonce.description} </p>
+                <p>Tarifs : {annonce.tarif} </p>
+                <button onClick={()=>{
+                    console.log("deleting ...")
+                    fetch('http://localhost:8000/api/posts/'+id +'/' ,{
+                    method: 'DELETE',
+                    headers: { 
+                                'Content-Type': 'application/json',
+                                 Authorization: 'Bearer ' + localStorage.getItem('access')
+                             }
+                })
+                        .then((response)=>{
+                            if (response.status === 401) {
+                                setLoggedIn(false);
+                                navigate('/log')}
+                            if(!response.ok){
+                                throw new Error('something went wrong');
+                            }
+                            navigate('/');
+                        })
+                        .catch((e)=>{
+                            setError(e.message);
+                            
+                        })
+                }}>delete</button>
             </div>
             <div className='absolute right-28 space-y-5'>
             <img src={fix1} alt="" className='h-7 cursor-pointer hover:fill-red-300'/>
@@ -55,7 +113,8 @@ function Detail() {
                 <img src={hh4} alt="" />
             </div>
         </div>
-        </div>
+        </div>  : null}
+    
        <Footer />
     </div>
   )
