@@ -7,13 +7,13 @@ import rs4 from "../pics/Rs4.png"
 
 function Footer() {
   return (
-    <div className='h-fit bg-[#251749] text-gray-300 flex justify-between pt-16 pb-10 px-16 gap-20'>
-     <div className='w-[30%]'>
+    <div className='h-fit bg-[#251749] text-gray-300 md:flex grid justify-between pt-16 pb-10 px-16 gap-20'>
+     <div className='md:w-[30%]'>
         <p className='text-[20px]'>est une platforme ou vous pouvez trouver tous ce qui concerne les annonces du soutiens scolaire</p>
      </div>
      <div className=''>
         <h3 className='grid text-center'>Nos services</h3>
-        <ul className='ml-3'>
+        <ul className='md:ml-3 md:text-left text-center'>
             <li>Ajouter une annonce</li>
             <li>Rechercher</li>
             <li> Notre catalogue</li>

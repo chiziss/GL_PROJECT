@@ -1,14 +1,25 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom';
 function Sign() {
- 
+ const [error, setError]= useState('');
+  const navigate=useNavigate();
+  useEffect(() => {
+   fetch('http://localhost:8000/api/users/register/').then((response)=>{return response.json()})
+   .then((data)=>{
+    if (data.error) {
+      setError('Login failed');
+      return;
+    }}
+    )
+  }, []);
+
   return (
-    <div className="h-full  flex hey">
+    <div className="h-full  md:flex grid hey">
          <div className="flex-1 py-[50px] pl-14 pr-[100px]">
         <form action='http://localhost:8000/api/users/register/' method="post">
            
-          <div className="grid space-y-10 p-[40px] border-4  rounded-[25px] backdrop-blur-lg bg-[#ffffff48]">
+          <div className="grid space-y-10 p-[10px] md:p-[40px] border-4  rounded-[25px] backdrop-blur-lg bg-[#ffffff48]">
           <p className="text-center text-4xl font-medium text-[#2B3A55]">S<color className="text-[#CE7777]">'</color>inscrire</p>
            <div className="space-y-4 px-8">
            <div className="space-y-1">
@@ -72,6 +83,7 @@ function Sign() {
             ></input>
             </div>
             </div>
+            {error && <p>{error}</p>}
            <div className="grid space-y-1">
 
             <button

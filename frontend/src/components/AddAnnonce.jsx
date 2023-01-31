@@ -44,7 +44,9 @@ const [image, setImage]=useState();
 const formData = new FormData();
 formData.append('image', image);
 
-useEffect(() => {
+
+function posteAnnonce(e) {
+  e.preventDefault();
   
   fetch('http://localhost:8000/api/posts/',{
    method: 'POST',
@@ -52,7 +54,7 @@ useEffect(() => {
      Authorization:'Bearer ' + token
    },
    body: JSON.stringify({
-    user: 'chiz@gmai.com' ,
+    user: user.first_name ,
   title: title,
   theme :theme,
   category : category,
@@ -80,7 +82,7 @@ if (!response.ok) {
  
    console.log(localStorage)
  }).catch((e)=>{console.log(e.message);})
- }, []);
+ };
 
 
   return (
@@ -98,8 +100,8 @@ if (!response.ok) {
           </div>
         </div>
     </nav>
-<form className=' p-12 md:px-[300px]'  >
-        <div className='bg-[#F2E5E5] px-20 py-12 space-y-10 w-full rounded-3xl'>
+<form id="anp"  className=' p-12 md:px-[300px]' onSubmit={posteAnnonce} >
+        <div className='bg-[#F2E5E5] px-10 md:px-20 py-12 space-y-10 w-full rounded-3xl'>
         <h2 className='text-center font-bold'> Annonce </h2>
         <div className='space-y-8 '>
         <div className='grid '>
@@ -139,7 +141,7 @@ if (!response.ok) {
         </div>
         <div className='gap-2 flex justify-end text-white'>
           <Link to="/myProfile">  <button className='bg-[#CE7777] py-1 px-4 rounded-xl text-white'>Annuler</button></Link>
-          <button type='submit' className='bg-[#2B3A55] py-1 px-4 rounded-xl'>Publier</button>
+          <button form='anp' type='submit' className='bg-[#2B3A55] py-1 px-4 rounded-xl'>Publier</button>
         </div>
         </div>
     </form>

@@ -41,6 +41,7 @@ function Detail() {
         })
         .then((data)=>{
             setAnnonce(data);
+            console.log(data)
         }).catch((e) => {
             setError(e.message);
         });
@@ -75,29 +76,8 @@ function Detail() {
             <div className='font-medium w-[50%]'>
                 <p> {annonce.description} </p>
                 <p>Tarifs : {annonce.tarif} </p>
-                <button onClick={()=>{
-                    console.log("deleting ...")
-                    fetch('http://localhost:8000/api/posts/'+id +'/' ,{
-                    method: 'DELETE',
-                    headers: { 
-                                'Content-Type': 'application/json',
-                                 Authorization: 'Bearer ' + localStorage.getItem('access')
-                             }
-                })
-                        .then((response)=>{
-                            if (response.status === 401) {
-                                setLoggedIn(false);
-                                navigate('/log')}
-                            if(!response.ok){
-                                throw new Error('something went wrong');
-                            }
-                            navigate('/');
-                        })
-                        .catch((e)=>{
-                            setError(e.message);
-                            
-                        })
-                }}>delete</button>
+                <p>Contactez nous : {annonce.user}</p>
+              
             </div>
             <div className='absolute right-28 space-y-5'>
             <img src={fix1} alt="" className='h-7 cursor-pointer hover:fill-red-300'/>

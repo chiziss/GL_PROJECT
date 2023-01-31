@@ -13,7 +13,7 @@ function Wilaya(props){
  return(
     <div class="lg:flex relative overflow-hidden w-max">
         
-        <img class="object-cover w-full h-56 rounded-lg filter blur-[1px] contrast-1" src={`${props.img}`} alt=""/>
+        <img class="object-cover w-full h-[190px] rounded-lg filter blur-[1px] contrast-1" src={`${props.img}`} alt=""/>
       <div className='absolute top-[20%] left-[30%] text-center '>
       <p className='text-white text-5xl'>{props.name}</p>
        <button className='text-white border border-white rounded-[50px] py-2 px-4 text-2xl '>voir plus</button>
@@ -27,11 +27,11 @@ function Wilaya(props){
 
 function Regions() {
   return (
-    <section class="h-screen">
+    <section class="md:h-screen h:fit">
         
     <div class="container px-6 py-10 mx-auto">
-        <h1 class="text-3xl ml-6 mt-4 font-semibold text-gray-800 lg:text-5xl dark:text-white">L<u class="underline-offset-[18px]">es régions</u> les plus demandées</h1>
-        <div class="grid grid-cols-1 gap-9 mt-16 md:mt-18 md:grid-cols-3">
+        <h1 class="text-3xl ml-6 mt-4 font-semibold text-gray-800 lg:text-5xl dark:text-white">L<u class="md:underline-offset-[18px]">es régions</u> les plus demandées</h1>
+        <div class="grid grid-cols-1 px-14 md:px-0 gap-9 mt-16 md:mt-18 md:grid-cols-3">
 
         <Wilaya img={Bejaia} name="Bejaia"/>
         <Wilaya img={Alger} name="Alger"/>

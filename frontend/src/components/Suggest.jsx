@@ -36,16 +36,16 @@ function Suggest() {
         
     <section class="bg-white dark:bg-gray-900 ">
        
-    <div class="container  py-10 mx-auto flex">
+    <div class="container  py-10 mx-auto md:flex grid">
         <div className='flex-1'>
-        <img src={shape} alt="" className='absolute h-[400px] left-0'/>
+        <img src={shape} alt="" className='absolute w-[70%] md:w-[45%] md:h-[400px] left-0'/>
         <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white absolute">Suggestions :</h1>
         <Card className="w-96 bg-transparent mt-28 ml-[-20px]">
-      <CardHeader color="blue" className="relative w-[350px] h-[300px]">
+      <CardHeader color="blue" className="relative md:w-[350px]  md:h-[300px]">
         <img
           src={hh}
           alt="img-blur-shadow"
-          className="h-full w-full bg-blue-400"
+          className="md:h-full h-[200px]  w-full bg-blue-400"
         />
       </CardHeader>
       <CardBody className="">
@@ -71,7 +71,7 @@ function Suggest() {
            { annonce ? annonce.map((post)=>{
                 return(
                  <div class="lg:flex">
-                <img class="object-cover w-full  rounded-lg lg:w-64" src={`http://localhost:8000${post.photo}`} alt=""/>
+                <img class="object-cover w-[230px] h-[190px]  rounded-lg lg:w-64" src={`http://localhost:8000${post.photo}`} alt=""/>
                 
                 <div class="flex flex-col justify-between py-6 lg:mx-6">
                    <Link to={'/'+post.id} > <p  class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
@@ -90,64 +90,9 @@ function Suggest() {
                 </div>);
            }): 'there are no posts yet'}
            
-            <div class="lg:flex">
-                <img class="object-cover w-full  rounded-lg lg:w-64" src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt=""/>
+           
 
-                <div class="flex flex-col justify-between py-6 lg:mx-6">
-                    <p href="#" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
-                        Science pour 3AS
-                    </p>
-                    <p className='text-gray-500'>
-                        cours de soutien en science naturel avec une enseignate experimentée
-                    </p>
-                    
-                    <span class="text-sm text-gray-500 flex dark:text-gray-300 gap-4">
-                        <p className='bg-[#F2E5E591] rounded  px-3'>3AS</p>
-                        <p className='bg-[#F2E5E591] rounded  px-3'>Tipaza</p>
-                        <p className='bg-[#F2E5E591] rounded  px-3'>Science</p>
-                    </span>
-                </div>
-            </div>
-
-            <div class="lg:flex">
-                <img class="object-cover w-full  rounded-lg lg:w-64" src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt=""/>
-
-                <div class="flex flex-col justify-between py-6 lg:mx-6">
-                    <p href="#" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
-                        Science pour 3AS
-                    </p>
-                    <p className='text-gray-500'>
-                        cours de soutien en science naturel avec une enseignate experimentée
-                    </p>
-                    
-                    <span class="text-sm text-gray-500 flex dark:text-gray-300 gap-4">
-                        <p className='bg-[#F2E5E591] rounded  px-3'>3AS</p>
-                        <p className='bg-[#F2E5E591] rounded  px-3'>Tipaza</p>
-                        <p className='bg-[#F2E5E591] rounded  px-3'>Science</p>
-                    </span>
-                </div>
-            </div>
-
-            <div class="lg:flex">
-                <img class="object-cover w-full  rounded-lg lg:w-64" src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt=""/>
-
-                <div class="flex flex-col justify-between py-6 lg:mx-6">
-                    <p href="#" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
-                        Science pour 3AS
-                    </p>
-                    <p className='text-gray-500'>
-                        cours de soutien en science naturel avec une enseignate experimentée
-                    </p>
-                    
-                    <span class="text-sm text-gray-500 flex dark:text-gray-300 gap-4">
-                        <p className='bg-[#F2E5E591] rounded  px-3'>3AS</p>
-                        <p className='bg-[#F2E5E591] rounded  px-3'>Tipaza</p>
-                        <p className='bg-[#F2E5E591] rounded  px-3'>Science</p>
-                    </span>
-                </div>
-            </div>
-
-            
+           
         </div>
     </div>
 </section>
